@@ -8,7 +8,7 @@ contained_string: "\"" STRING "\""
 """
 
 grm_terminals = r"""
-STRING: (LETTER | NUMBER | " " | "," | "." | "-" | "!" | "?")+
+STRING: (LETTER | NUMBER | " " | "," | "." | "-" | "!" | "?" | ":" )+
 
 """
 
