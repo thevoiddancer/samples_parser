@@ -9,6 +9,6 @@ from samples_parser.grammars import grm_imports, grm_contained_str, grm_terminal
 grammar_start = r"""
 start: contained_string"""
 
-grammar = grammar_start + grm_contained_str + grm_terminals + grm_imports
+grammar = grammar_start + grm_contained_str
 
 contained_string_parser = Lark(grammar=grammar)

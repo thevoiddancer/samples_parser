@@ -1,15 +1,10 @@
 grm_contained_str = r"""
-contained_string: "\"" STRING "\""
-                  | "'" STRING "'"
-                  | "(" STRING ")"
-                  | "{" STRING "}"
-                  | "[" STRING "]"
-
-"""
-
-grm_terminals = r"""
-STRING: (LETTER | NUMBER | " " | "," | "." | "-" | "!" | "?" | ":" )+
-
+contained_string: "\"" CONT_STRING "\""
+                  | "'" CONT_STRING "'"
+                  | "(" CONT_STRING ")"
+                  | "{" CONT_STRING "}"
+                  | "[" CONT_STRING "]"
+CONT_STRING: /[\w.,!?:\- ]+/
 """
 
 grm_imports = r"""

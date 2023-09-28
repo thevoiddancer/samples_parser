@@ -8,12 +8,12 @@ start: [_NL] source_block
 
 source_block: source_info sample_info song_info
 
-source_info: source_rank " " source_name " " source_points source_usage _NL
+source_info: source_rank " " source_name source_points source_usage _NL
 sample_info: " "+ sample_text " " sample_note _NL
 song_info: " "+ "- " band "; " album "; " song
 
 source_rank: INT "."
-source_name: STRING
+source_name: STRING+
 source_points: "[" INT " points] "
 source_usage: "(" source_usage_groups source_usage_songs source_usage_samples")"
 sample_text: contained_string
@@ -27,12 +27,16 @@ band: STRING
 album: STRING
 song: STRING
 
-STRING: (LETTER | NUMBER | " " | "," | "." | "-" | "!" | "?" | ":" | _NL)+
+STRING: (LETTER | NUMBER | "," | "." | "-" | "!" | "?" | ":")+ _NL?
 
 %import common.LETTER
 %import common.NUMBER
 %import common.INT
+%import common.WS -> _WS
 %import common.NEWLINE -> _NL
+
+%ignore _WS
+%ignore _NL
 """
 grammar = grammar_basic + grm_contained_str
 
