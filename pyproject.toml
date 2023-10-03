@@ -8,17 +8,49 @@ readme = "README.md"
 packages = [{include = "samples_parser", from = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 lark = "^1.1"
 rich = "^13.1.0"
+ruff = "^0.0.291"
+pytest-ruff = "^0.1.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2"
 black = "^22.12"
-flake8 = "^6.0"
 mypy = "^1"
 isort = "^5.11"
+bumpversion = "^0.6.0"
+pytest-cov = "^4.1.0"
+pytest-mypy = "^0.10.3"
+pytest-black = "^0.3.12"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 87
+target-version = ['py38']
+skip-string-normalization = true
+
+[tool.isort]
+line_length = 87
+multi_line_output=3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+
+[tool.pytest.ini_options]
+#addopts = "-rxX --mypy --black --flake8 --verbose --cov=src --cov-report term-missing"
+testpaths = [
+    "tests",
+    "src",
+]
+markers = [
+    "black",
+    "flake8",
+    "mypy",
+]
+log_cli = true
+log_cli_level = "WARNING"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
