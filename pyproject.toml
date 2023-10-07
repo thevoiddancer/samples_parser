@@ -8,11 +8,12 @@ readme = "README.md"
 packages = [{include = "samples_parser", from = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "<3.13,>=3.9"
 lark = "^1.1"
 rich = "^13.1.0"
 ruff = "^0.0.291"
 pytest-ruff = "^0.1.1"
+pandas = "^2.1.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2"
@@ -23,6 +24,8 @@ bumpversion = "^0.6.0"
 pytest-cov = "^4.1.0"
 pytest-mypy = "^0.10.3"
 pytest-black = "^0.3.12"
+rich = "^13.6.0"
+ipykernel = "^6.25.2"
 
 [build-system]
 requires = ["poetry-core"]
