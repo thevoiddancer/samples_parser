@@ -1,40 +1,57 @@
+from samples_parser.contained_string import (
+    contained_string_parser as parser,
+    CSTransformer,
+)
+
 import pytest
-from samples_parser.contained_string import contained_string_parser
-from lark import UnexpectedCharacters
+
+samples = [
+    '"sample"',
+    "'sa'mple'",
+    """'samp"le'""",
+    "[sample]",
+    "(sample)",
+    "{sample}",
+    "[sa(mple]",
+    "[sam(pl)e]",
+]
+
+expected = [
+    '"sample"',
+    "'sa'mple'",
+    """'samp"le'""",
+    "sample",
+    "sample",
+    "sample",
+    "sa(mple",
+    "sam(pl)e",
+]
+
+
+@pytest.mark.parametrize("text, expected", [(txt, exp) for txt, exp in zip(samples, expected)])
+def test_contained_string(text, expected):
+    parsed = parser.parse(text)
+    string = parsed.children[0].children[0].children[0].value
+    assert string == expected
+
+
+expected_trans = [
+    "sample",
+    "sa'mple",
+    'samp"le',
+    "sample",
+    "sample",
+    "sample",
+    "sa(mple",
+    "sam(pl)e",
+]
 
 
 @pytest.mark.parametrize(
-    "string, error, expected",
-    [
-        pytest.param(
-            '"some text 123,.-!?"', None, "some text 123,.-!?", id="double quotes"
-        ),
-        pytest.param(
-            "'some text 123,.-!?'", None, "some text 123,.-!?", id="single quotes"
-        ),
-        pytest.param("[some text 123,.-!?]", None, "some text 123,.-!?", id="brackets"),
-        pytest.param("{some text 123,.-!?}", None, "some text 123,.-!?", id="braces"),
-        pytest.param(
-            "(some text 123,.-!?)", None, "some text 123,.-!?", id="parenthesis"
-        ),
-        pytest.param(
-            "(some text 123,.-!?(", UnexpectedCharacters, None, id="two opening"
-        ),
-        pytest.param(
-            "\"some text 123,.-!?'", UnexpectedCharacters, None, id="mismatched quote"
-        ),
-        pytest.param(
-            "[some text 123,.-!?)", UnexpectedCharacters, None, id="mismatched brace"
-        ),
-        pytest.param(
-            "(some [text 123,.-!?)", UnexpectedCharacters, None, id="brace inside"
-        ),
-    ],
+    "text, expected", [(txt, exp) for txt, exp in zip(samples, expected_trans)]
 )
-def test_contained_string(string, error, expected):
-    if not error:
-        result = contained_string_parser.parse(string)
-        assert result.children[0].children[0] == expected
-    else:
-        with pytest.raises(error):
-            contained_string_parser.parse(string)
+def test_contained_string_transformer(text, expected):
+    transformer = CSTransformer()
+    parsed = parser.parse(text)
+    transformed = transformer.transform(parsed)
+    assert transformed == expected

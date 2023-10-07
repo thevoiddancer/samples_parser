@@ -1,0 +1,8 @@
+[pytest]
+addopts = -rxX --mypy --black --flake8 --verbose
+testpaths = tests src
+markers = black,flake8,mypy
+
+[coverage:run]
+source = src
+omit = */__init__.py
