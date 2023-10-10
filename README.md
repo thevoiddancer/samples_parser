@@ -48,3 +48,6 @@ so will be ignored for the time being.
 2. Store samples:
   - create database model
   - store in database (sqlite)
+3. Normalize database
+  - band/album/song
+  - source
