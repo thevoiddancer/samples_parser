@@ -1,7 +1,7 @@
 from collections import ChainMap
 from lark import Discard, Lark, Transformer, Tree
 
-samples_grammar = r"""
+basic_structure_grammar = r"""
 start: [_NL] sample_source+
 sample_source: source_info usage
 usage: usage_info+
@@ -156,5 +156,5 @@ class SamplesTransformer(Transformer):
             start.extend(node)
         return start
 
-samples_parser = Lark(grammar=samples_grammar)
-samples_transformer = SamplesTransformer()
+basic_structure_parser = Lark(grammar=basic_structure_grammar)
+basic_structure_transformer = SamplesTransformer()
