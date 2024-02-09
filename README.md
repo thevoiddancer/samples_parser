@@ -41,13 +41,17 @@ so will be ignored for the time being.
 
 ## Roadmap:
 
-1. Parse samples:
+1. Parse samples: (DONE)
   - create parser
   - create transformer
   - parse and transforme to a pickle
-2. Store samples:
+2. Store samples: (DONE)
   - create database model
   - store in database (sqlite)
-3. Normalize database
+3. Normalize database:
   - band/album/song
   - source
+4. Django website:
+  - search by sample/source/band/song/album
+  - top 10 list
+  - total list

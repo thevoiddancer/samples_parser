@@ -15,6 +15,7 @@ ruff = "^0.0.291"
 pytest-ruff = "^0.1.1"
 pandas = "^2.1.1"
 sqlalchemy = "^2.0.21"
+openpyxl = "^3.1.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2"
@@ -45,7 +46,7 @@ force_grid_wrap = 0
 combine_as_imports = true
 
 [tool.pytest.ini_options]
-#addopts = "-rxX --mypy --black --flake8 --verbose --cov=src --cov-report term-missing"
+#addopts = "-rfxX --mypy --black --flake8 --verbose --cov=src --cov-report term-missing"
 testpaths = [
     "tests",
     "src",
